@@ -39,7 +39,7 @@ function App() {
   const saveToDatabase = async () => {
     if (!todo) return;
     try {
-      await axios.post("http://localhost:5000/api/add", {
+      await axios.post("https://backend-mern-two.vercel.app/api/add", {
         userId: todo.userId,
         title: todo.title,
       });
@@ -55,7 +55,9 @@ function App() {
 
   const displayData = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/get");
+      const res = await axios.get(
+        "https://backend-mern-two.vercel.app/api/get"
+      );
       setResult(res.data);
     } catch (err) {
       console.error("Error fetching todo:", err);
@@ -70,7 +72,9 @@ function App() {
   const handleDelete = async (id) => {
     try {
       confirm("sure delete");
-      await axios.delete("http://localhost:5000/api/delete/" + id);
+      await axios.delete(
+        "https://backend-mern-two.vercel.app/api/delete/" + id
+      );
       setResult(result.filter((re) => re._id !== id));
     } catch (error) {
       console.error("Error deleting todo:", error);
@@ -81,7 +85,9 @@ function App() {
     if (result.length === 0) return 0;
     if (confirm("Are you sure you want to delete ALL data?")) {
       try {
-        await axios.delete("http://localhost:5000/api/deletedataall"); // Dedicated route for deleting all
+        await axios.delete(
+          "https://backend-mern-two.vercel.app/api/deletedataall"
+        ); // Dedicated route for deleting all
         fetchTodo(); // Refresh data after deletion
         displayData();
 
