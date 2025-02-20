@@ -3,7 +3,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 // import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./page/ExamplePage";
+// import Home from "./page/ExamplePage";
 // create route
 function App() {
   const [id, setId] = useState("");
@@ -39,7 +39,7 @@ function App() {
   const saveToDatabase = async () => {
     if (!todo) return;
     try {
-      await axios.post("http://localhost:5000/add", {
+      await axios.post("http://localhost:5000/api/add", {
         userId: todo.userId,
         title: todo.title,
       });
@@ -55,7 +55,7 @@ function App() {
 
   const displayData = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/get");
+      const res = await axios.get("http://localhost:5000/api/get");
       setResult(res.data);
     } catch (err) {
       console.error("Error fetching todo:", err);
@@ -70,7 +70,7 @@ function App() {
   const handleDelete = async (id) => {
     try {
       confirm("sure delete");
-      await axios.delete("http://localhost:5000/delete/" + id);
+      await axios.delete("http://localhost:5000/api/delete/" + id);
       setResult(result.filter((re) => re._id !== id));
     } catch (error) {
       console.error("Error deleting todo:", error);
@@ -81,7 +81,7 @@ function App() {
     if (result.length === 0) return 0;
     if (confirm("Are you sure you want to delete ALL data?")) {
       try {
-        await axios.delete("http://localhost:5000/deletedataall"); // Dedicated route for deleting all
+        await axios.delete("http://localhost:5000/api/deletedataall"); // Dedicated route for deleting all
         fetchTodo(); // Refresh data after deletion
         displayData();
 
